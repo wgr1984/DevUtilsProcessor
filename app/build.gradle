@@ -78,6 +78,7 @@ dependencies {
     api project(':libDevUtilsProcessor')
     releaseAnnotationProcessor project(':devUtilsProcessorRelease')
     debugAnnotationProcessor project(':devUtilsProcessorDebug')
+//    annotationProcessor project(':devUtilsProcessorRelease')
     //annotationProcessor "de.wr.simpledefaultmethods:simpleCompositionProcessor:0.1"
     //provided "de.wr.simpledefaultmethods:libSimpleCompositionProcessor:0.1"
 

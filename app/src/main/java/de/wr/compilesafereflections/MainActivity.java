@@ -7,6 +7,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import static java.util.Collections.emptyList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import de.wr.compilesafereflections.databinding.ActivityMainBinding;
@@ -36,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         return "Should not be seen !";
     }
 
+    @Debug
+    private static List<String> testDebugMehtod2() {
+        System.out.println("This is a debug method");
+        return emptyList();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -55,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                  );
         if (BuildConfig.DEBUG) {
-            System.out.println(testDebugMehtod());
+//            System.out.println(testDebugMehtod());
+            testDebugMehtod2();
         }
     }
 
