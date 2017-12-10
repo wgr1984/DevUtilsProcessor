@@ -30,7 +30,7 @@ bintray {
         name = 'DevUtilsProcessor'
         userOrg = user
         licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/wgr1984/SimpleComposition.git'
+        vcsUrl = 'https://github.com/wgr1984/devutilsprocessor.git'
         labels = ['annotation-processor', 'java', 'kotlin']
         publicDownloadNumbers = true
         version {
