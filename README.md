@@ -43,7 +43,7 @@ static List<String> testDebugMethod2() {
 }
 ```
 
-Furthermore there is the an check included to enforce a certain
+Furthermore there is the a check included to enforce a certain
 pattern regarding naming of annotated methods. By default it is
 set to ```".*[Dd]ebug.*"```, in oder to change that it can be overwritten
 passing ```methodPattern``` argument towards the annotation:
@@ -55,7 +55,7 @@ private Object debug_test() {
 }
 ```
 
-Another function offered by the dev uitls processor is ```@RemovedUntilVersion```.
+Another function offered by the dev untls processor is ```@RemovedUntilVersion```.
 ```Java
 @RemovedUntilVersion("1.1.1")
 private void depricatedUntil() {
@@ -70,7 +70,7 @@ javaCompileOptions {
     }
 }
 ```
-an one version is reach compilation will fail
+and once version is reached, compilation will fail
 ```
 Error:(38, 20) error: Method debug_test is marked to be removed until version: 1.1.0
 ```
