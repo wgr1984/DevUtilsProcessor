@@ -13,7 +13,7 @@ and add the following dependencies to you module
     debugAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorDebug:0.1"
     provided "de.wr.devutilsprocessor:libDevUtilsProcessor:0.1"
 ```
-Now you can use e.g. ```@debug``` inside your project
+Now you can use e.g. ```@Debug``` inside your project
 ```Java
 @Debug
 private Object testDebugMethod() {
@@ -22,7 +22,7 @@ private Object testDebugMethod() {
 }
 ```
 which will replace all code inside the method in case of
-an release build by
+a release build by
 ```Java
 private Object testDebugMehtod()
   {
@@ -30,6 +30,14 @@ private Object testDebugMehtod()
   }
 ```
 inside the generated ```.class``` file
+<br/>
+To be on the safe side ensure all calls of ```@Debug``` annotated
+methods are guarded by ```DevUtils.IS_DEBUG``` like
+```Java
+if (DevUtils.IS_DEBUG) {
+    testDebugMethod();
+}
+```
 
 By default all methods marked as ```@Debug``` are expected to be private
 to ensure it is not used by classes / modules outside.

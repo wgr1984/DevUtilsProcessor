@@ -11,6 +11,7 @@ import static java.util.Collections.emptyList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import de.wr.annotationprocessor.processor.DevUtils;
 import de.wr.compilesafereflections.databinding.ActivityMainBinding;
 import de.wr.libsimplecomposition.Debug;
 import de.wr.libsimplecomposition.RemovedUntilVersion;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Debug(allowNonPrivate = true)
-    static List<String> testDebugMethod2() {
+    static List<String> testDebugMethod() {
         System.out.println("This is a debug method");
         return emptyList();
     }
@@ -68,9 +69,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "Error:" + error, Toast.LENGTH_LONG).show();
                     }
                  );
-        if (BuildConfig.DEBUG) {
-//            System.out.println(testDebugMehtod());
-            testDebugMethod2();
+        if (DevUtils.IS_DEBUG) {
+            testDebugMethod();
         }
     }
 
