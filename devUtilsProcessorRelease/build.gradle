@@ -16,7 +16,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 group = 'de.wr.devutilsprocessor'
-version = '0.2'
+version = '0.3'
 
 publishing {
     publications {
@@ -39,9 +39,9 @@ bintray {
         labels = ['annotation-processor', 'java', 'kotlin']
         publicDownloadNumbers = true
         version {
-            name = '0.2'
-            desc = 'Dev Utils Processor Release' + '0.2'
-            vcsTag = '0.2'
+            name = '0.3'
+            desc = 'Dev Utils Processor Release' + '0.3'
+            vcsTag = '0.3'
         }
     }
 }
