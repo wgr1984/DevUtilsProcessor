@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RemovedUntilVersion("1.1.1")
-    private void depricatedUntil() {
+    private void deprecatedUntil() {
         System.out.println("This method is about to expire");
     }
 
