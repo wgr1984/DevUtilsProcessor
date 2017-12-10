@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/wgr1984/DevUtilsProcessor.svg?branch=master)](https://travis-ci.org/wgr1984/DevUtilsProcessor)
+[ ![Download](https://api.bintray.com/packages/wgr1984/DevUtilsProcessor/DevUtilsProcessor/images/download.svg) ](https://bintray.com/wgr1984/DevUtilsProcessor/DevUtilsProcessor/_latestVersion)
 # Dev Utils Processor
 This project provides an annotation processor to provide useful tools
 during development time
