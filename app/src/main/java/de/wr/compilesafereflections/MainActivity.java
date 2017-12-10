@@ -33,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Debug
-    private Object testDebugMehtod() {
+    private Object testDebugMethod() {
         System.out.println("This is a debug method");
         return "Should not be seen !";
     }
 
     @Debug
-    private static List<String> testDebugMehtod2() {
+    private static List<String> testDebugMethod2() {
         System.out.println("This is a debug method");
         return emptyList();
     }

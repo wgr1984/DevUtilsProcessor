@@ -4,7 +4,7 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "https://dl.bintray.com/wgr1984/SimpleDefaultMethods"}
+        maven { url "https://dl.bintray.com/wgr1984/DevUtilsProcessor"}
     }
 }
 
@@ -49,7 +49,7 @@ android {
 
 repositories {
 //    mavenLocal()
-    maven { url "https://dl.bintray.com/wgr1984/SimpleComposition"}
+    maven { url "https://dl.bintray.com/wgr1984/DevUtilsProcessor"}
 }
 
 dependencies {
@@ -75,12 +75,13 @@ dependencies {
 
 
     provided group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
-    api project(':libDevUtilsProcessor')
-    releaseAnnotationProcessor project(':devUtilsProcessorRelease')
-    debugAnnotationProcessor project(':devUtilsProcessorDebug')
+//    api project(':libDevUtilsProcessor')
+//    releaseAnnotationProcessor project(':devUtilsProcessorRelease')
+//    debugAnnotationProcessor project(':devUtilsProcessorDebug')
 //    annotationProcessor project(':devUtilsProcessorRelease')
-    //annotationProcessor "de.wr.simpledefaultmethods:simpleCompositionProcessor:0.1"
-    //provided "de.wr.simpledefaultmethods:libSimpleCompositionProcessor:0.1"
+    releaseAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorRelease:0.1"
+    debugAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorDebug:0.1"
+    provided "de.wr.devutilsprocessor:libDevUtilsProcessor:0.1"
 
 }
 
