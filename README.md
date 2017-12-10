@@ -54,3 +54,23 @@ private Object debug_test() {
     return "Should not be seen !";
 }
 ```
+
+Another function offered by the dev uitls processor is ```@RemovedUntilVersion```.
+```Java
+@RemovedUntilVersion("1.1.1")
+private void depricatedUntil() {
+    System.out.println("This method is about to expire");
+}
+```
+and provide the app version towards the annotation processor
+```Groovy
+javaCompileOptions {
+    annotationProcessorOptions {
+        arguments = ['devutils.currentVersion': defaultConfig.versionName]
+    }
+}
+```
+an one version is reach compilation will fail
+```
+Error:(38, 20) error: Method debug_test is marked to be removed until version: 1.1.0
+```

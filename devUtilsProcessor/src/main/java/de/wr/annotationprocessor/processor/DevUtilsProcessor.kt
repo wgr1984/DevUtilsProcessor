@@ -6,8 +6,12 @@ import com.sun.tools.javac.tree.JCTree
 import com.sun.tools.javac.tree.TreeMaker
 import com.sun.tools.javac.tree.TreeTranslator
 import com.sun.tools.javac.util.Name
+import com.sun.xml.internal.ws.util.VersionUtil
 import de.wr.libsimplecomposition.Debug
+import de.wr.libsimplecomposition.RemovedUntilVersion
 import io.reactivex.rxkotlin.toObservable
+import sun.misc.Version
+import sun.text.normalizer.VersionInfo
 import java.util.*
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
@@ -31,12 +35,18 @@ abstract class DevUtilsProcessor : AbstractProcessor() {
     private lateinit var messager: Messager
     private lateinit var trees: Trees
     private lateinit var treeMaker: TreeMaker
+    private lateinit var currentVersion: String
 
     override fun getSupportedSourceVersion(): SourceVersion = latestSupported()
 
     override fun getSupportedAnnotationTypes() = supportedAnnotations
 
     abstract val isDebug: Boolean
+
+    override fun getSupportedOptions(): MutableSet<String> {
+        return mutableSetOf("devutils.currentVersion")
+    }
+
 
     @Synchronized override fun init(processingEnv: ProcessingEnvironment) {
         super.init(processingEnv)
@@ -46,6 +56,7 @@ abstract class DevUtilsProcessor : AbstractProcessor() {
         messager = processingEnv.messager
         trees = Trees.instance(processingEnv)
         treeMaker = TreeMaker.instance((processingEnv as JavacProcessingEnvironment).getContext());
+        currentVersion = processingEnv.options["devutils.currentVersion"].orEmpty()
     }
 
     override fun process(annotations: Set<TypeElement>, roundEnv: RoundEnvironment): Boolean {
@@ -55,13 +66,23 @@ abstract class DevUtilsProcessor : AbstractProcessor() {
                 roundEnv.getElementsAnnotatedWith(it).toObservable()
             }.toList().blockingGet()
 
-        handleDebugAnnotation(elements)
+        handleDebugAnnotation(elements.filter { it.getAnnotation(Debug::class.java) != null })
+        handleVersionAnnotation(elements.filter { it.getAnnotation(RemovedUntilVersion::class.java) != null })
 
         return true
     }
 
-    private fun handleDebugAnnotation(elements: MutableList<Element>) {
-        elements.filter { it.getAnnotation(Debug::class.java) != null }.forEach {
+    private fun handleVersionAnnotation(elements: List<Element>) {
+        elements.forEach {
+            val annotation = it.getAnnotation(RemovedUntilVersion::class.java)
+            if (VersionUtil.compare(currentVersion, annotation.value) >= 0) {
+                error(it, "Method ${it.simpleName} is marked to be removed until version: ${annotation.value}")
+            }
+        }
+    }
+
+    private fun handleDebugAnnotation(elements: List<Element>) {
+        elements.forEach {
             (trees.getTree(it) as JCTree).accept(object : TreeTranslator() {
                 override fun visitMethodDef(p0: JCTree.JCMethodDecl?) {
                     val debugAnnotation = it.getAnnotation(Debug::class.java);
@@ -131,6 +152,7 @@ abstract class DevUtilsProcessor : AbstractProcessor() {
         init {
             supportedAnnotationsClasses.apply {
                 add(Debug::class.java)
+                add(RemovedUntilVersion::class.java)
             }.forEach { supportedAnnotations.add(it.canonicalName) }
         }
     }

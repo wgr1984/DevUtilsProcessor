@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import de.wr.compilesafereflections.databinding.ActivityMainBinding;
 import de.wr.libsimplecomposition.Debug;
+import de.wr.libsimplecomposition.RemovedUntilVersion;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    }
+
+    @RemovedUntilVersion("1.1.1")
+    private void depricatedUntil() {
+        System.out.println("This method is about to expire");
     }
 
     @Debug(methodPattern = "debug_.*")
