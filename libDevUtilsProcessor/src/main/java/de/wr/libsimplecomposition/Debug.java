@@ -11,4 +11,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
 public @interface Debug {
+    boolean allowNonPrivate() default false;
+    String methodPattern() default ".*[Dd]ebug.*";
 }

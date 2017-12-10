@@ -13,6 +13,7 @@ import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.SourceVersion.latestSupported
 import javax.lang.model.element.Element
+import javax.lang.model.element.Modifier
 import javax.lang.model.element.TypeElement
 import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
@@ -60,11 +61,23 @@ abstract class DevUtilsProcessor : AbstractProcessor() {
     }
 
     private fun handleDebugAnnotation(elements: MutableList<Element>) {
-        if (!isDebug) {
-            elements.filter { it.getAnnotation(Debug::class.java) != null }.forEach {
-                (trees.getTree(it) as JCTree).accept(object : TreeTranslator() {
-                    override fun visitMethodDef(p0: JCTree.JCMethodDecl?) {
-                        info(it, "Method: ${p0?.name} will be removed! (debugOnly)")
+        elements.filter { it.getAnnotation(Debug::class.java) != null }.forEach {
+            (trees.getTree(it) as JCTree).accept(object : TreeTranslator() {
+                override fun visitMethodDef(p0: JCTree.JCMethodDecl?) {
+                    val debugAnnotation = it.getAnnotation(Debug::class.java);
+                    // Check if method is private
+                    if (p0?.modifiers?.getFlags()?.any { it == Modifier.PRIVATE} == false) {
+                        // Check if non private is allowed by exception
+                        if (debugAnnotation?.allowNonPrivate == false) {
+                            error(it, "Method ${p0.name} is marked as debug but not private")
+                        }
+                    }
+                    // Check if method matches defined pattern
+                    if (p0?.name?.matches(Regex(debugAnnotation.methodPattern)) == false) {
+                        error(it, "Method ${p0.name} does not match pattern: ${debugAnnotation.methodPattern}")
+                    }
+                    if (!isDebug) {
+                        info(it, "Method: ${p0?.name} will be removed! (debug)")
                         super.visitMethodDef(p0)
 
                         val throwException = treeMaker.Throw(treeMaker.NewClass(null, JCList.nil(),
@@ -75,8 +88,8 @@ abstract class DevUtilsProcessor : AbstractProcessor() {
                         val block = treeMaker.Block(0, list)
                         (this.result as JCTree.JCMethodDecl).body = block
                     }
-                })
-            }
+                }
+            })
         }
     }
 

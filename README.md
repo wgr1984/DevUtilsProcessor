@@ -30,3 +30,27 @@ private Object testDebugMehtod()
   }
 ```
 inside the generated ```.class``` file
+
+By default all methods marked as ```@Debug``` are expected to be private
+to ensure it is not used by classes / modules outside.
+If for any good reason this guard shall deactivated just add
+```allowNonPrivate=true``` as parameter to the annotation
+```Java
+@Debug(allowNonPrivate = true)
+static List<String> testDebugMethod2() {
+    System.out.println("This is a debug method");
+    return emptyList();
+}
+```
+
+Furthermore there is the an check included to enforce a certain
+pattern regarding naming of annotated methods. By default it is
+set to ```".*[Dd]ebug.*"```, in oder to change that it can be overwritten
+passing ```methodPattern``` argument towards the annotation:
+```Java
+@Debug(methodPattern = "debug_.*")
+private Object debug_test() {
+    System.out.println("This is a debug method");
+    return "Should not be seen !";
+}
+```

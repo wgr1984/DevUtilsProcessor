@@ -32,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
 
-    @Debug
-    private Object testDebugMethod() {
+    @Debug(methodPattern = "debug_.*")
+    private Object debug_test() {
         System.out.println("This is a debug method");
         return "Should not be seen !";
     }
 
-    @Debug
-    private static List<String> testDebugMethod2() {
+    @Debug(allowNonPrivate = true)
+    static List<String> testDebugMethod2() {
         System.out.println("This is a debug method");
         return emptyList();
     }
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                  );
         if (BuildConfig.DEBUG) {
 //            System.out.println(testDebugMehtod());
-            testDebugMehtod2();
+            testDebugMethod2();
         }
     }
 
