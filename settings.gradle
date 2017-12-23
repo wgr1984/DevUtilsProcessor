@@ -1,1 +1,1 @@
-include ':app', ':devUtilsProcessor', ':libDevUtilsProcessor',  ':devUtilsProcessorDebug',  ':devUtilsProcessorRelease'
+include ':app', ':devUtilsProcessor', ':libDevUtilsProcessor', ':libDevUtilsProcessorDebug', ':libDevUtilsProcessorRelease',  ':devUtilsProcessorDebug',  ':devUtilsProcessorRelease', ':mylibrary', ':mylibrary2'

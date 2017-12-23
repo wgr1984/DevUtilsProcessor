@@ -11,10 +11,12 @@ import static java.util.Collections.emptyList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import de.wr.annotationprocessor.processor.DevUtils;
 import de.wr.compilesafereflections.databinding.ActivityMainBinding;
-import de.wr.libsimplecomposition.Debug;
-import de.wr.libsimplecomposition.RemovedUntilVersion;
+import de.wr.libdevutils.Debug;
+import de.wr.libdevutils.DevUtils;
+import de.wr.libdevutils.RemovedUntilVersion;
+import de.wr.mylibrary.TestIgnore;
+import de.wr.mylibrary2.TestIgnore2;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
@@ -72,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
         if (DevUtils.IS_DEBUG) {
             testDebugMethod();
         }
+
+        new TestIgnore().printoutTest();
+        new TestIgnore2().printoutTest();
     }
 
     @Override

@@ -75,7 +75,9 @@ dependencies {
 
 
     provided group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
-    api project(':libDevUtilsProcessor')
+//    implementation project(':libDevUtilsProcessor')
+    releaseImplementation project(':libDevUtilsProcessorRelease')
+    debugImplementation project(':libDevUtilsProcessorDebug')
     releaseAnnotationProcessor project(':devUtilsProcessorRelease')
     debugAnnotationProcessor project(':devUtilsProcessorDebug')
 //    annotationProcessor project(':devUtilsProcessorRelease')
@@ -83,6 +85,8 @@ dependencies {
 //    debugAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorDebug:0.1"
 //    provided "de.wr.devutilsprocessor:libDevUtilsProcessor:0.1"
 
+    compile project(path: ':mylibrary')
+    compile project(path: ':mylibrary2')
 }
 
 //android.defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true

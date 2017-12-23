@@ -1,4 +1,4 @@
-package de.wr.libsimplecomposition;
+package de.wr.libdevutils;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,7 +10,6 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
-public @interface Debug {
-    boolean allowNonPrivate() default false;
-    String methodPattern() default ".*[Dd]ebug.*";
+public @interface RemovedUntilVersion {
+    String value();
 }

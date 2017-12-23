@@ -2,11 +2,8 @@ package de.wr.annotationprocessor.processor
 
 import com.github.javaparser.JavaParser
 import com.github.javaparser.ast.CompilationUnit
-import com.github.javaparser.ast.NodeList
 import com.github.javaparser.ast.body.VariableDeclarator
 import com.github.javaparser.ast.expr.*
-import com.github.javaparser.ast.stmt.BlockStmt
-import com.github.javaparser.ast.stmt.ReturnStmt
 import com.sun.source.util.Trees
 import com.sun.tools.javac.processing.JavacProcessingEnvironment
 import com.sun.tools.javac.tree.JCTree
@@ -14,8 +11,8 @@ import com.sun.tools.javac.tree.TreeMaker
 import com.sun.tools.javac.tree.TreeTranslator
 import com.sun.tools.javac.util.Name
 import com.sun.xml.internal.ws.util.VersionUtil
-import de.wr.libsimplecomposition.Debug
-import de.wr.libsimplecomposition.RemovedUntilVersion
+import de.wr.libdevutils.Debug
+import de.wr.libdevutils.RemovedUntilVersion
 import io.reactivex.rxkotlin.toObservable
 import java.io.BufferedWriter
 import java.io.IOException
@@ -74,39 +71,8 @@ abstract class DevUtilsProcessor : AbstractProcessor() {
 
         handleDebugAnnotation(elements.filter { it.getAnnotation(Debug::class.java) != null })
         handleVersionAnnotation(elements.filter { it.getAnnotation(RemovedUntilVersion::class.java) != null })
-        if (elements.isNotEmpty()) {
-            createUtilsClass()
-        }
 
         return true
-    }
-
-    private fun createUtilsClass() {
-        try {
-            val fileName = "DevUtils"
-            val source = processingEnv.filer.createSourceFile("${this::class.java.`package`.name}.$fileName")
-
-            val writer = BufferedWriter(source.openWriter())
-
-            val cu = CompilationUnit()
-            // set the package
-            cu.setPackageDeclaration(this::class.java.`package`.name);
-
-            val type = JavaParser.parseType("boolean")
-
-            cu.addClass(fileName, AstModifier.PUBLIC, AstModifier.FINAL)
-                    .addField(type,"IS_DEBUG", AstModifier.PUBLIC, AstModifier.STATIC)
-                    .setVariable(0, VariableDeclarator(type, "IS_DEBUG", BooleanLiteralExpr(isDebug))
-            )
-
-            writer.run {
-                write(cu.toString())
-                flush()
-                close()
-            }
-        } catch (e: IOException) {
-            System.err.println("$e ${e.message}")
-        }
     }
 
     private fun handleVersionAnnotation(elements: List<Element>) {
