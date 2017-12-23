@@ -24,6 +24,11 @@ android {
 
 }
 
+repositories {
+//    mavenLocal()
+    maven { url "https://dl.bintray.com/wgr1984/DevUtilsProcessor"}
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -32,8 +37,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    releaseImplementation project(':libDevUtilsProcessorRelease')
-    debugImplementation project(':libDevUtilsProcessorDebug')
-    releaseAnnotationProcessor project(':devUtilsProcessorRelease')
-    debugAnnotationProcessor project(':devUtilsProcessorDebug')
+//    releaseImplementation project(':libDevUtilsProcessorRelease')
+//    debugImplementation project(':libDevUtilsProcessorDebug')
+//    releaseAnnotationProcessor project(':devUtilsProcessorRelease')
+//    debugAnnotationProcessor project(':devUtilsProcessorDebug')
+    releaseImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorRelease:0.4"
+    debugImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorDebug:0.4"
+    releaseAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorRelease:0.4"
+    debugAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorDebug:0.4"
 }
