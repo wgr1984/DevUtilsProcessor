@@ -18,10 +18,10 @@ public class TestIgnore2 {
 
     @Debug
     private void printoutTestDebug() {
-        System.out.println("Test Debug");
+        System.out.println("Test Debug 2");
     }
 
     private void printoutTestRelease() {
-        System.out.println("Test Release");
+        System.out.println("Test Release 2");
     }
 }
