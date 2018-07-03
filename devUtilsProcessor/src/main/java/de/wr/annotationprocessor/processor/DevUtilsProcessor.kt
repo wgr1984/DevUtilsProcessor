@@ -1,9 +1,5 @@
 package de.wr.annotationprocessor.processor
 
-import com.github.javaparser.JavaParser
-import com.github.javaparser.ast.CompilationUnit
-import com.github.javaparser.ast.body.VariableDeclarator
-import com.github.javaparser.ast.expr.*
 import com.sun.source.util.Trees
 import com.sun.tools.javac.processing.JavacProcessingEnvironment
 import com.sun.tools.javac.tree.JCTree
@@ -12,10 +8,11 @@ import com.sun.tools.javac.tree.TreeTranslator
 import com.sun.tools.javac.util.Name
 import com.sun.xml.internal.ws.util.VersionUtil
 import de.wr.libdevutils.Debug
+import de.wr.libdevutils.DebugOnly
 import de.wr.libdevutils.RemovedUntilVersion
+import io.reactivex.Observable
+import io.reactivex.rxkotlin.toMaybe
 import io.reactivex.rxkotlin.toObservable
-import java.io.BufferedWriter
-import java.io.IOException
 import java.util.*
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
@@ -71,8 +68,17 @@ abstract class DevUtilsProcessor : AbstractProcessor() {
 
         handleDebugAnnotation(elements.filter { it.getAnnotation(Debug::class.java) != null })
         handleVersionAnnotation(elements.filter { it.getAnnotation(RemovedUntilVersion::class.java) != null })
+        handleDebugOnlyAnnotation(elements.filter { it.getAnnotation(DebugOnly::class.java) !=null })
 
         return true
+    }
+
+    private fun handleDebugOnlyAnnotation(elements: List<Element>) {
+        isDebug.takeUnless { it }
+                .toMaybe()
+                .map { elements }
+                .flatMapObservable { Observable.fromIterable(it) }
+                .blockingForEach { error(it, "force fail on non debug, please remove this implementation in non debug variant") }
     }
 
     private fun handleVersionAnnotation(elements: List<Element>) {
@@ -156,6 +162,7 @@ abstract class DevUtilsProcessor : AbstractProcessor() {
             supportedAnnotationsClasses.apply {
                 add(Debug::class.java)
                 add(RemovedUntilVersion::class.java)
+                add(DebugOnly::class.java)
             }.forEach { supportedAnnotations.add(it.canonicalName) }
         }
     }

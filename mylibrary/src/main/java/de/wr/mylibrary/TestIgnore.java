@@ -2,6 +2,7 @@ package de.wr.mylibrary;
 
 import de.wr.libdevutils.Debug;
 import de.wr.libdevutils.DevUtils;
+import de.wr.libdevutils.DebugOnly;
 
 /**
  * Created by wolfgangreithmeier on 16.12.17.
@@ -23,5 +24,10 @@ public class TestIgnore {
 
     private void printoutTestRelease() {
         System.out.println("Test Release");
+    }
+
+    @DebugOnly
+    private void letItFailOnRelease() {
+        System.out.print("Am i still alive?");
     }
 }
