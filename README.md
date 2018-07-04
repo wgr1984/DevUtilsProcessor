@@ -11,10 +11,10 @@ maven { url "https://dl.bintray.com/wgr1984/DevUtilsProcessor"}
 ```
 and add the following dependencies to you module
 ```Groovy
-releaseImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorRelease:0.4"
-debugImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorDebug:0.4"
-releaseAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorRelease:0.4"
-debugAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorDebug:0.4"
+releaseImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorRelease:0.5"
+debugImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorDebug:0.5"
+releaseAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorRelease:0.5"
+debugAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorDebug:0.5"
 ```
 Now you can use e.g. ```@Debug``` inside your project
 ```Java

@@ -41,8 +41,8 @@ dependencies {
 //    debugImplementation project(':libDevUtilsProcessorDebug')
 //    releaseAnnotationProcessor project(':devUtilsProcessorRelease')
 //    debugAnnotationProcessor project(':devUtilsProcessorDebug')
-    releaseImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorRelease:0.4"
-    debugImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorDebug:0.4"
-    releaseAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorRelease:0.4"
-    debugAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorDebug:0.4"
+    releaseImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorRelease:0.5"
+    debugImplementation "de.wr.devutilsprocessor:libDevUtilsProcessorDebug:0.5"
+    releaseAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorRelease:0.5"
+    debugAnnotationProcessor "de.wr.devutilsprocessor:devUtilsProcessorDebug:0.5"
 }
