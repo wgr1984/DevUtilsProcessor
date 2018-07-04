@@ -1,6 +1,7 @@
 package de.wr.mylibrary;
 
 import de.wr.libdevutils.Debug;
+import de.wr.libdevutils.DebugOnly;
 import de.wr.libdevutils.DevUtils;
 
 /**
@@ -24,4 +25,10 @@ public class TestIgnore {
     private void printoutTestRelease() {
         System.out.println("Test Release");
     }
+
+//    @DebugOnly
+    private void letItFailOnRelease() {
+        System.out.println("Am i still alive?");
+    }
+
 }
