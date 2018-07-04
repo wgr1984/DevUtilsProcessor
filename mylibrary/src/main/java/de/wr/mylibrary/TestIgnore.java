@@ -1,8 +1,8 @@
 package de.wr.mylibrary;
 
 import de.wr.libdevutils.Debug;
-import de.wr.libdevutils.DevUtils;
 import de.wr.libdevutils.DebugOnly;
+import de.wr.libdevutils.DevUtils;
 
 /**
  * Created by wolfgangreithmeier on 16.12.17.
@@ -26,8 +26,9 @@ public class TestIgnore {
         System.out.println("Test Release");
     }
 
-    @DebugOnly
+//    @DebugOnly
     private void letItFailOnRelease() {
-        System.out.print("Am i still alive?");
+        System.out.println("Am i still alive?");
     }
+
 }
